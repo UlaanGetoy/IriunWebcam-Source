@@ -1,0 +1,489 @@
+<UserControl
+	x:Class="webcam.CameraTab" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interop;assembly=PresentationCore" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	UIElement.Focusable="True" xmlns:webcam="clr-namespace:webcam"
+	Initialized="UserControl_Initialized"
+	SizeChanged="UserControl_SizeChanged"
+	IsVisibleChanged="UserControl_IsVisibleChanged"
+	MouseWheel="UserControl_MouseWheel">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				RowDefinition.Height="26*" />
+			<RowDefinition
+				RowDefinition.Height="49*" />
+		</Grid.RowDefinitions>
+		<Image
+			Name="imgelt"
+			Image.Stretch="Fill"
+			OpacityMask="#FF000000"
+			Grid.RowSpan="2"
+			MouseLeftButtonDown="imgelt_MouseLeftButtonDown">
+			<Image.Source>
+				<i:D3DImage
+					x:Name="d3dimg" />
+			</Image.Source>
+		</Image>
+		<Image
+			Name="focusImg"
+			FrameworkElement.Width="60"
+			FrameworkElement.Height="60"
+			Image.Source="/Images/focus.png"
+			Image.Stretch="UniformToFill"
+			UIElement.Visibility="Collapsed"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Top"
+			RenderTransformOrigin="0.5, 0.5"
+			MouseLeftButtonUp="focusImg_MouseLeftButtonUp" />
+		<Image
+			Name="focusLockImg"
+			FrameworkElement.Width="60"
+			FrameworkElement.Height="60"
+			Image.Source="/Images/focus_lock.png"
+			Image.Stretch="UniformToFill"
+			UIElement.Visibility="Collapsed"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Top"
+			RenderTransformOrigin="0.5, 0.5"
+			Opacity="0" />
+		<Image
+			Name="focusUnlockImg"
+			FrameworkElement.Width="60"
+			FrameworkElement.Height="60"
+			Image.Source="/Images/focus_unlock.png"
+			Image.Stretch="UniformToFill"
+			UIElement.Visibility="Collapsed"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Top"
+			RenderTransformOrigin="0.5, 0.5"
+			Opacity="0" />
+		<DockPanel
+			Name="noPreview"
+			Grid.RowSpan="2"
+			Panel.Background="#FF000000"
+			UIElement.Visibility="Hidden">
+			<Label
+				ContentControl.Content="Preview not available"
+				Control.Foreground="#FFF7F1F1"
+				FrameworkElement.HorizontalAlignment="Center"
+				FrameworkElement.VerticalAlignment="Center" />
+		</DockPanel>
+		<DockPanel
+			Grid.RowSpan="2">
+			<StackPanel
+				DockPanel.Dock="Right"
+				FrameworkElement.HorizontalAlignment="Center"
+				FrameworkElement.VerticalAlignment="Center"
+				FrameworkElement.Margin="0,0,10,0"
+				Orientation="Vertical">
+				<Button
+					Name="cameraButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					ToolTip="Switch camera"
+					Click="cameraButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_camera.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="micButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Mic on/off"
+					Click="micButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_mic_on.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="flipButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Flip image"
+					Click="flipButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_flip.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="flashButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Torch"
+					Click="flashButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_flash.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="isoButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="ISO"
+					Click="isoButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_iso.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="expTimeButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Exposure Time"
+					Click="expTimeButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_exp_time.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="expBiasButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Exposure Bias"
+					Click="expBiasButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_exp_bias.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="wbButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="White Balance"
+					Click="wbButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_wb.png" />
+					</ContentControl>
+				</Button>
+				<Button
+					Name="zoomButton"
+					Control.Background="#00FFFFFF"
+					Control.BorderThickness="0"
+					FrameworkElement.Margin="0,10,0,0"
+					ToolTip="Zoom"
+					Click="zoomButton_Click">
+					<ContentControl>
+						<Image
+							FrameworkElement.Width="32"
+							FrameworkElement.Height="32"
+							Image.Source="/Images/btn_zoom.png" />
+					</ContentControl>
+				</Button>
+			</StackPanel>
+			<Border
+				Name="sliderPanel"
+				DockPanel.Dock="Bottom"
+				FrameworkElement.Margin="0,0,0,20"
+				Border.Background="#FF303030"
+				Opacity="0.7"
+				FrameworkElement.MaxWidth="400"
+				FrameworkElement.HorizontalAlignment="Stretch"
+				UseLayoutRounding="True"
+				CornerRadius="5,5,5,5"
+				Padding="5,5,5,5"
+				UIElement.Visibility="Collapsed">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							ColumnDefinition.Width="70" />
+						<ColumnDefinition
+							ColumnDefinition.Width="*" />
+					</Grid.ColumnDefinitions>
+					<StackPanel
+						FrameworkElement.Width="70">
+						<Button
+							Name="autoButton"
+							ContentControl.Content="Manual"
+							FrameworkElement.HorizontalAlignment="Stretch"
+							FrameworkElement.VerticalAlignment="Center"
+							FrameworkElement.Margin="5,3,5,0"
+							Click="autoButton_Click" />
+						<TextBox
+							Name="sliderText"
+							TextBox.Text="20000"
+							FrameworkElement.HorizontalAlignment="Center"
+							FrameworkElement.VerticalAlignment="Center"
+							SelectionOpacity="0"
+							Control.FontSize="14"
+							Control.IsTabStop="False"
+							UIElement.IsEnabled="False"
+							IsUndoEnabled="False"
+							Control.Foreground="#FFFFFFFF"
+							Control.HorizontalContentAlignment="Center"
+							Control.Background="{x:Null}"
+							Control.BorderBrush="{x:Null}" />
+					</StackPanel>
+					<Slider
+						Name="isoSlider"
+						Control.HorizontalContentAlignment="Stretch"
+						ScrollViewer.VerticalScrollBarVisibility="Disabled"
+						Control.VerticalContentAlignment="Center"
+						Maximum="1000"
+						LargeChange="100"
+						SmallChange="1"
+						TickFrequency="1000"
+						Grid.Column="1"
+						FrameworkElement.VerticalAlignment="Center"
+						Minimum="100"
+						TickPlacement="Both"
+						ValueChanged="isoSlider_ValueChanged" />
+					<Slider
+						Name="expTimeSlider"
+						Control.HorizontalContentAlignment="Stretch"
+						ScrollViewer.VerticalScrollBarVisibility="Disabled"
+						Control.VerticalContentAlignment="Center"
+						Maximum="1"
+						SmallChange="0"
+						Grid.Column="1"
+						FrameworkElement.VerticalAlignment="Center"
+						TickPlacement="Both"
+						ValueChanged="expTimeSlider_ValueChanged" />
+					<Slider
+						Name="wbSlider"
+						Control.HorizontalContentAlignment="Stretch"
+						ScrollViewer.VerticalScrollBarVisibility="Disabled"
+						Control.VerticalContentAlignment="Center"
+						Maximum="100"
+						LargeChange="10"
+						SmallChange="1"
+						TickFrequency="10"
+						Grid.Column="1"
+						FrameworkElement.VerticalAlignment="Center"
+						Minimum="1"
+						ValueChanged="wbSlider_ValueChanged" />
+				</Grid>
+			</Border>
+			<Border
+				Name="expBiasPanel"
+				DockPanel.Dock="Bottom"
+				FrameworkElement.Margin="0,0,0,20"
+				Border.Background="#FF303030"
+				Opacity="0.7"
+				FrameworkElement.MaxWidth="400"
+				FrameworkElement.HorizontalAlignment="Stretch"
+				UseLayoutRounding="True"
+				CornerRadius="5,5,5,5"
+				Padding="5,5,5,5">
+				<Slider
+					Name="expBiasSlider"
+					Control.HorizontalContentAlignment="Stretch"
+					Control.VerticalContentAlignment="Center"
+					Maximum="2"
+					Grid.Column="1"
+					Minimum="-2"
+					TickPlacement="Both"
+					AutoToolTipPlacement="TopLeft"
+					ValueChanged="expBiasSlider_ValueChanged" />
+			</Border>
+			<Border
+				Name="zoomPanel"
+				DockPanel.Dock="Bottom"
+				FrameworkElement.Margin="0,0,0,20"
+				Border.Background="#FF303030"
+				Opacity="0.7"
+				FrameworkElement.MaxWidth="400"
+				FrameworkElement.HorizontalAlignment="Stretch"
+				UseLayoutRounding="True"
+				CornerRadius="5,5,5,5"
+				Padding="5,5,5,5"
+				UIElement.Visibility="Collapsed">
+				<Slider
+					Name="zoomSlider"
+					Control.HorizontalContentAlignment="Stretch"
+					ScrollViewer.VerticalScrollBarVisibility="Disabled"
+					Control.VerticalContentAlignment="Center"
+					Maximum="100"
+					LargeChange="10"
+					SmallChange="1"
+					TickFrequency="10"
+					Grid.Column="1"
+					FrameworkElement.VerticalAlignment="Center"
+					Minimum="1"
+					TickPlacement="Both"
+					ValueChanged="zoomSlider_ValueChanged" />
+			</Border>
+			<StackPanel
+				DockPanel.Dock="Top"
+				FrameworkElement.HorizontalAlignment="Center"
+				FrameworkElement.VerticalAlignment="Top"
+				FrameworkElement.Margin="0,0,0,2"
+				Orientation="Horizontal"
+				Panel.Background="#FF303030"
+				Opacity="0.7">
+				<ComboBox
+					Name="phoneComboBox"
+					FrameworkElement.VerticalAlignment="Center"
+					Control.FontSize="14"
+					FrameworkElement.Margin="5,5,5,5"
+					SelectionChanged="phoneComboBox_SelectionChanged">
+					<ComboBoxItem
+						ContentControl.Content="My Phone"
+						IsSelected="True" />
+				</ComboBox>
+				<Grid
+					Name="batteryIndicator"
+					FrameworkElement.Margin="5,0,3,0"
+					FrameworkElement.VerticalAlignment="Center">
+					<Grid.RowDefinitions>
+						<RowDefinition
+							RowDefinition.Height="Auto" />
+					</Grid.RowDefinitions>
+					<Image
+						FrameworkElement.Width="30"
+						FrameworkElement.Height="30"
+						Image.Source="/Images/battery.png"
+						FrameworkElement.VerticalAlignment="Center" />
+					<Label
+						Name="batteryText"
+						FrameworkElement.HorizontalAlignment="Center"
+						FrameworkElement.VerticalAlignment="Center"
+						Control.FontSize="9"
+						Control.FontWeight="Bold">100%</Label>
+				</Grid>
+			</StackPanel>
+		</DockPanel>
+		<StackPanel
+			FrameworkElement.Margin="10,0,0,0"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Center"
+			Orientation="Horizontal">
+			<Button
+				Name="menuButton"
+				Control.Background="#00FFFFFF"
+				Control.BorderThickness="0"
+				FrameworkElement.VerticalAlignment="Top"
+				Click="menuButton_Click">
+				<ContentControl>
+					<Image
+						FrameworkElement.Width="32"
+						FrameworkElement.Height="32"
+						Image.Source="/Images/btn_menu.png" />
+				</ContentControl>
+			</Button>
+			<StackPanel
+				Name="menuPanel"
+				FrameworkElement.Margin="10,0,0,0">
+				<Grid
+					Name="cameraMenu"
+					Panel.Background="#FF303030"
+					Opacity="0.7"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							ColumnDefinition.Width="Auto" />
+						<ColumnDefinition
+							ColumnDefinition.Width="*" />
+					</Grid.ColumnDefinitions>
+					<Label
+						ContentControl.Content="Camera"
+						Control.FontSize="14"
+						Control.Foreground="#FFFFFFFF"
+						FrameworkElement.HorizontalAlignment="Left" />
+					<ComboBox
+						Name="cameraComboBox"
+						FrameworkElement.VerticalAlignment="Center"
+						FrameworkElement.Margin="10,0,2,0"
+						Grid.Column="1"
+						SelectionChanged="cameraComboBox_SelectionChanged">
+						<ComboBoxItem>No Camera</ComboBoxItem>
+					</ComboBox>
+				</Grid>
+				<StackPanel
+					FrameworkElement.HorizontalAlignment="Left"
+					Orientation="Horizontal"
+					Panel.Background="#FF303030"
+					Opacity="0.7">
+					<Label
+						ContentControl.Content="Video format"
+						Control.FontSize="14"
+						Control.Foreground="#FFFFFFFF"
+						FrameworkElement.HorizontalAlignment="Left" />
+					<ComboBox
+						Name="formatComboBox"
+						FrameworkElement.VerticalAlignment="Center"
+						FrameworkElement.Margin="10,0,2,0"
+						FrameworkElement.HorizontalAlignment="Left"
+						DockPanel.Dock="Bottom"
+						SelectionChanged="formatComboBox_SelectionChanged">
+						<ComboBoxItem
+							IsSelected="True">Automatic</ComboBoxItem>
+						<ComboBoxItem>640 x 360</ComboBoxItem>
+						<ComboBoxItem>640 x 480</ComboBoxItem>
+						<ComboBoxItem>960 x 540</ComboBoxItem>
+						<ComboBoxItem>1280 x 720</ComboBoxItem>
+						<ComboBoxItem>1280 x 960</ComboBoxItem>
+						<ComboBoxItem>1920 x 1080</ComboBoxItem>
+						<ComboBoxItem>2560 x 1440</ComboBoxItem>
+						<ComboBoxItem>3840 x 2160</ComboBoxItem>
+					</ComboBox>
+				</StackPanel>
+				<Grid
+					Name="closeAppPanel"
+					Panel.Background="#FF303030"
+					Opacity="0.7"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							ColumnDefinition.Width="33*" />
+						<ColumnDefinition
+							ColumnDefinition.Width="59*" />
+					</Grid.ColumnDefinitions>
+					<Label
+						ContentControl.Content="Close phone app"
+						Control.FontSize="14"
+						Control.Foreground="#FFFFFFFF"
+						FrameworkElement.HorizontalAlignment="Left"
+						Grid.ColumnSpan="2" />
+					<Button
+						Name="shutDownButton"
+						Control.Background="#00FFFFFF"
+						Control.BorderThickness="0"
+						FrameworkElement.HorizontalAlignment="Left"
+						FrameworkElement.VerticalAlignment="Center"
+						Grid.Column="1"
+						FrameworkElement.Margin="84,0,0,0"
+						Click="shutDownButton_Click">
+						<ContentControl>
+							<Image
+								FrameworkElement.Width="16"
+								FrameworkElement.Height="16"
+								Image.Source="/Images/btn_shutdown.png"
+								FrameworkElement.Margin="8,8,8,8" />
+						</ContentControl>
+					</Button>
+				</Grid>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

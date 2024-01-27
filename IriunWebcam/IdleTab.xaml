@@ -1,0 +1,193 @@
+<UserControl
+	x:Class="webcam.IdleTab" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:webcam="clr-namespace:webcam"
+	IsVisibleChanged="UserControl_IsVisibleChanged">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				RowDefinition.Height="2*" />
+			<RowDefinition
+				RowDefinition.Height="4*" />
+			<RowDefinition
+				RowDefinition.Height="*" />
+		</Grid.RowDefinitions>
+		<RichTextBox
+			IsReadOnly="True"
+			Control.HorizontalContentAlignment="Left"
+			FrameworkElement.Margin="0,0,0,0"
+			FrameworkElement.HorizontalAlignment="Stretch"
+			Control.VerticalContentAlignment="Top"
+			FrameworkElement.VerticalAlignment="Center"
+			Control.Background="#FFE5E5E5"
+			Control.BorderBrush="#FFE5E5E5"
+			Control.FontSize="14"
+			Control.IsTabStop="False"
+			Control.BorderThickness="0">
+			<FlowDocument>
+				<Paragraph
+					TextAlignment="Center">
+					<Run
+						Run.Text="Iriun Webcam"
+						TextElement.FontWeight="Bold" /> <Run
+						Run.Text="turns your phone into a wireless Webcam." /><LineBreak /><Run
+						Run.Text="Use your mobile's camera in your PC or Mac." /></Paragraph>
+			</FlowDocument>
+		</RichTextBox>
+		<RichTextBox
+			Name="disconnectedText"
+			IsReadOnly="True"
+			Control.HorizontalContentAlignment="Stretch"
+			Control.VerticalContentAlignment="Stretch"
+			FrameworkElement.Margin="10,0,0,0"
+			Grid.Row="1"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Center"
+			Control.Background="#FFE5E5E5"
+			Control.BorderBrush="#FFE5E5E5"
+			Control.FontSize="14"
+			Control.IsTabStop="False"
+			CaretBrush="#FFE5E5E5"
+			SelectionBrush="#FFE5E5E5"
+			AutoWordSelection="False"
+			Control.BorderThickness="0">
+			<FlowDocument>
+				<Paragraph>
+					<Run
+						Run.Text="No phone available." />
+				</Paragraph>
+				<Paragraph>
+					<Run
+						Run.Text="Please make sure that:" />
+					<LineBreak />
+					<Run
+						Run.Text="* Iriun Webcam is running on your mobile phone" />
+					<LineBreak />
+					<Run
+						Run.Text="* The phone and this PC are connected to the same WiFi" />
+				</Paragraph>
+			</FlowDocument>
+		</RichTextBox>
+		<StackPanel
+			Name="passcodePanel"
+			FrameworkElement.Margin="10,0,0,0"
+			Grid.Row="1"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Center"
+			UIElement.Visibility="Collapsed">
+			<RichTextBox
+				IsReadOnly="True"
+				Control.HorizontalContentAlignment="Stretch"
+				Control.VerticalContentAlignment="Stretch"
+				Control.Background="#FFE5E5E5"
+				Control.BorderBrush="#FFE5E5E5"
+				Control.FontSize="14"
+				Control.IsTabStop="False"
+				CaretBrush="#FFE5E5E5"
+				SelectionBrush="#FFE5E5E5"
+				AutoWordSelection="False"
+				Control.BorderThickness="0">
+				<FlowDocument>
+					<Paragraph>
+						<Run
+							Name="passcodeText"
+							Run.Text="Phone requires passcode." />
+					</Paragraph>
+					<Paragraph>
+						<Run
+							Run.Text="Please check Iriun phone app settings to find the code." />
+					</Paragraph>
+				</FlowDocument>
+			</RichTextBox>
+			<StackPanel
+				FrameworkElement.Margin="10,20,0,0"
+				Grid.Row="1"
+				FrameworkElement.HorizontalAlignment="Left"
+				FrameworkElement.VerticalAlignment="Center"
+				Orientation="Horizontal">
+				<PasswordBox
+					Name="passcodeBox"
+					MaxLength="12"
+					FrameworkElement.Width="100"
+					PasswordChanged="passcodeBox_PasswordChanged" />
+				<Button
+					Name="passcodeButton"
+					FrameworkElement.Margin="10,0,0,0"
+					ContentControl.Content="Apply"
+					IsDefault="True"
+					UIElement.IsEnabled="False"
+					Click="Passcode_Click" />
+			</StackPanel>
+		</StackPanel>
+		<RichTextBox
+			Name="initFailedText"
+			IsReadOnly="True"
+			Control.HorizontalContentAlignment="Stretch"
+			Control.VerticalContentAlignment="Stretch"
+			FrameworkElement.Margin="10,0,0,0"
+			Grid.Row="1"
+			FrameworkElement.HorizontalAlignment="Left"
+			FrameworkElement.VerticalAlignment="Center"
+			Control.Background="#FFE5E5E5"
+			Control.BorderBrush="#FFE5E5E5"
+			Control.FontSize="14"
+			Control.IsTabStop="False"
+			CaretBrush="#FFE5E5E5"
+			SelectionBrush="#FFE5E5E5"
+			AutoWordSelection="False"
+			Control.BorderThickness="0"
+			UIElement.Visibility="Collapsed">
+			<FlowDocument>
+				<Paragraph>
+					<Run
+						Run.Text="Initialization failed." /> <Run
+						Name="errorCodeText"
+						Run.Text="Error code -1." /></Paragraph>
+				<Paragraph>
+					<Run
+						Run.Text="Please, reinstall Iriun Webcam and reboot your computer." />
+				</Paragraph>
+			</FlowDocument>
+		</RichTextBox>
+		<Grid
+			Row="2"
+			FrameworkElement.HorizontalAlignment="Stretch"
+			FrameworkElement.VerticalAlignment="Center">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<CheckBox
+				Name="blankCheckBox"
+				ContentControl.Content="Blank video when no connection"
+				Control.VerticalContentAlignment="Top"
+				Control.HorizontalContentAlignment="Left"
+				FrameworkElement.HorizontalAlignment="Left"
+				FrameworkElement.Margin="10,0,-1,0"
+				FrameworkElement.VerticalAlignment="Top"
+				Control.Padding="5,0,0,0"
+				Control.FontSize="14"
+				Checked="CheckBox_Checked"
+				Unchecked="CheckBox_Unchecked" />
+			<CheckBox
+				Name="autoStartCheckBox"
+				ContentControl.Content="Start Iriun Webcam when I start my computer"
+				FrameworkElement.HorizontalAlignment="Left"
+				FrameworkElement.Margin="10,5,0,0"
+				Grid.Row="1"
+				FrameworkElement.VerticalAlignment="Top"
+				Control.Padding="5,0,0,0"
+				Control.FontSize="14"
+				Checked="autoStartCheckBox_Checked"
+				Unchecked="autoStartCheckBox_Unchecked" />
+		</Grid>
+		<Border
+			Border.BorderThickness="1"
+			Border.BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+			FrameworkElement.Margin="5,5,5,5"
+			Padding="0,0,0,0" />
+		<Border
+			Border.BorderThickness="1"
+			Grid.Row="1"
+			FrameworkElement.Margin="5,5,5,5"
+			Border.BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" />
+	</Grid>
+</UserControl>

@@ -1,0 +1,109 @@
+<Window
+	x:Class="webcam.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:webcam"
+	Title="Iriun Webcam v2.8.2"
+	FrameworkElement.Height="440"
+	FrameworkElement.Width="720"
+	FrameworkElement.MinWidth="720"
+	FrameworkElement.MinHeight="440"
+	Icon="/icon.ico"
+	Loaded="Window_Loaded"
+	Closing="Window_Closing"
+	GotFocus="Window_GotFocus"
+	StateChanged="Window_StateChanged"
+	Activated="Window_Activated"
+	MouseEnter="Window_MouseEnter"
+	KeyDown="Window_KeyDown">
+	<Grid
+		Name="mainGrid">
+		<TabControl
+			Name="tabControl"
+			Control.HorizontalContentAlignment="Stretch"
+			Control.VerticalContentAlignment="Center"
+			SelectionChanged="TabControl_SelectionChanged">
+			<TabItem
+				Name="tab0"
+				HeaderedContentControl.Header="Camera"
+				UIElement.Visibility="Collapsed">
+				<Grid
+					Panel.Background="#FFE5E5E5"
+					FrameworkElement.VerticalAlignment="Stretch"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<local:IdleTab
+						x:Name="idleTab0"
+						UIElement.Visibility="Hidden"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch"
+						Control.VerticalContentAlignment="Stretch" />
+					<local:CameraTab
+						x:Name="cameraTab0"
+						FrameworkElement.HorizontalAlignment="Stretch"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch" />
+				</Grid>
+			</TabItem>
+			<TabItem
+				Name="tab1"
+				HeaderedContentControl.Header="Camera #2"
+				UIElement.Visibility="Hidden">
+				<Grid
+					Panel.Background="#FFE5E5E5"
+					FrameworkElement.VerticalAlignment="Stretch"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<local:IdleTab
+						x:Name="idleTab1"
+						UIElement.Visibility="Hidden"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch"
+						Control.VerticalContentAlignment="Stretch" />
+					<local:CameraTab
+						x:Name="cameraTab1"
+						FrameworkElement.HorizontalAlignment="Stretch"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch" />
+				</Grid>
+			</TabItem>
+			<TabItem
+				Name="tab2"
+				HeaderedContentControl.Header="Camera #3"
+				UIElement.Visibility="Hidden">
+				<Grid
+					Panel.Background="#FFE5E5E5"
+					FrameworkElement.VerticalAlignment="Stretch"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<local:IdleTab
+						x:Name="idleTab2"
+						UIElement.Visibility="Hidden"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch"
+						Control.VerticalContentAlignment="Stretch" />
+					<local:CameraTab
+						x:Name="cameraTab2"
+						FrameworkElement.HorizontalAlignment="Stretch"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch" />
+				</Grid>
+			</TabItem>
+			<TabItem
+				Name="tab3"
+				HeaderedContentControl.Header="Camera #4"
+				UIElement.Visibility="Hidden">
+				<Grid
+					Panel.Background="#FFE5E5E5"
+					FrameworkElement.VerticalAlignment="Stretch"
+					FrameworkElement.HorizontalAlignment="Stretch">
+					<local:IdleTab
+						x:Name="idleTab3"
+						UIElement.Visibility="Hidden"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch"
+						Control.VerticalContentAlignment="Stretch" />
+					<local:CameraTab
+						x:Name="cameraTab3"
+						FrameworkElement.HorizontalAlignment="Stretch"
+						FrameworkElement.Margin="0,0,0,0"
+						FrameworkElement.VerticalAlignment="Stretch" />
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>

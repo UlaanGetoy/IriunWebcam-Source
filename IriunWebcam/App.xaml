@@ -1,0 +1,17 @@
+<Application
+	x:Class="webcam.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:webcam">
+	<Application.Resources>
+		<ResourceDictionary>
+			<Style
+				x:Key="{x:Type ComboBoxItem}"
+				TargetType="{x:Type ComboBoxItem}">
+				<Setter
+					Property="Control.HorizontalContentAlignment"
+					Value="Left" />
+				<Setter
+					Property="Control.VerticalContentAlignment"
+					Value="Top" />
+			</Style>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>
